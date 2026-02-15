@@ -3,13 +3,26 @@ import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
   const { toast } = useToast();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitting(true);
+    const { error } = await supabase.from("contact_submissions").insert({
+      name: form.name.trim(),
+      email: form.email.trim(),
+      message: form.message.trim(),
+    });
+    setSubmitting(false);
+    if (error) {
+      toast({ title: "Error sending message", description: error.message, variant: "destructive" });
+      return;
+    }
     toast({ title: "Message sent!", description: "We'll get back to you within 24 hours." });
     setForm({ name: "", email: "", message: "" });
   };
@@ -106,9 +119,10 @@ const Contact = () => {
                 </div>
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-2 px-7 py-3 rounded-md gradient-accent text-accent-foreground font-medium shadow-accent-glow hover:scale-105 transition-transform"
+                  disabled={submitting}
+                  className="inline-flex items-center gap-2 px-7 py-3 rounded-md gradient-accent text-accent-foreground font-medium shadow-accent-glow hover:scale-105 transition-transform disabled:opacity-50"
                 >
-                  Send Message <Send size={16} />
+                  {submitting ? "Sending..." : "Send Message"} <Send size={16} />
                 </button>
               </form>
             </motion.div>
