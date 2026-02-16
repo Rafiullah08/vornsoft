@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
@@ -13,47 +13,75 @@ const navLinks = [
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-primary/95 backdrop-blur-md border-b border-secondary">
-      <nav className="container mx-auto flex items-center justify-between h-16 px-4 lg:px-8">
-        <Link to="/" className="text-xl font-bold text-primary-foreground tracking-tight">
-          Nova<span className="text-accent">Tech</span>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-primary/98 backdrop-blur-xl shadow-lg border-b border-secondary/50"
+          : "bg-transparent border-b border-transparent"
+      }`}
+    >
+      <nav className="container mx-auto flex items-center justify-between h-18 px-4 lg:px-8 py-4">
+        <Link to="/" className="flex items-center gap-2 group">
+          <div className="w-9 h-9 rounded-lg gradient-accent flex items-center justify-center shadow-accent-glow group-hover:scale-110 transition-transform">
+            <span className="text-accent-foreground font-black text-sm">N</span>
+          </div>
+          <span className="text-xl font-bold text-primary-foreground tracking-tight">
+            Nova<span className="text-accent">Tech</span>
+          </span>
         </Link>
 
         {/* Desktop */}
-        <ul className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <li key={link.path}>
-              <Link
-                to={link.path}
-                className={`text-sm font-medium transition-colors ${
-                  location.pathname === link.path
-                    ? "text-accent"
-                    : "text-primary-foreground/70 hover:text-primary-foreground"
-                }`}
-              >
-                {link.name}
-              </Link>
-            </li>
-          ))}
+        <ul className="hidden md:flex items-center gap-1">
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            return (
+              <li key={link.path}>
+                <Link
+                  to={link.path}
+                  className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                    isActive
+                      ? "text-accent bg-accent/10"
+                      : "text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/5"
+                  }`}
+                >
+                  {link.name}
+                  {isActive && (
+                    <motion.div
+                      layoutId="nav-indicator"
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-0.5 rounded-full bg-accent"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         <Link
           to="/contact"
-          className="hidden md:inline-flex items-center px-5 py-2 text-sm font-medium rounded-md gradient-accent text-accent-foreground shadow-accent-glow transition-transform hover:scale-105"
+          className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-lg gradient-accent text-accent-foreground shadow-accent-glow transition-all hover:scale-105 hover:shadow-lg"
         >
-          Get in Touch
+          Get in Touch <ArrowRight size={14} />
         </Link>
 
         {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-primary-foreground"
+          className="md:hidden w-10 h-10 rounded-lg bg-primary-foreground/5 flex items-center justify-center text-primary-foreground hover:bg-primary-foreground/10 transition-colors"
           aria-label="Toggle menu"
         >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </nav>
 
@@ -64,33 +92,43 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-primary border-b border-secondary overflow-hidden"
+            className="md:hidden bg-primary/98 backdrop-blur-xl border-b border-secondary overflow-hidden"
           >
-            <ul className="flex flex-col p-4 gap-3">
-              {navLinks.map((link) => (
-                <li key={link.path}>
+            <ul className="flex flex-col p-5 gap-1">
+              {navLinks.map((link, i) => (
+                <motion.li
+                  key={link.path}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                >
                   <Link
                     to={link.path}
                     onClick={() => setMobileOpen(false)}
-                    className={`block py-2 text-sm font-medium ${
+                    className={`block py-3 px-4 text-sm font-medium rounded-lg transition-all ${
                       location.pathname === link.path
-                        ? "text-accent"
-                        : "text-primary-foreground/70"
+                        ? "text-accent bg-accent/10"
+                        : "text-primary-foreground/70 hover:text-primary-foreground hover:bg-primary-foreground/5"
                     }`}
                   >
                     {link.name}
                   </Link>
-                </li>
+                </motion.li>
               ))}
-              <li>
+              <motion.li
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: navLinks.length * 0.05 }}
+                className="mt-3"
+              >
                 <Link
                   to="/contact"
                   onClick={() => setMobileOpen(false)}
-                  className="inline-flex items-center px-5 py-2 text-sm font-medium rounded-md gradient-accent text-accent-foreground mt-2"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-lg gradient-accent text-accent-foreground shadow-accent-glow"
                 >
-                  Get in Touch
+                  Get in Touch <ArrowRight size={14} />
                 </Link>
-              </li>
+              </motion.li>
             </ul>
           </motion.div>
         )}

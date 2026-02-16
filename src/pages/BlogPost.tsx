@@ -52,7 +52,9 @@ const BlogPost = () => {
       <section className="py-24 gradient-hero">
         <div className="container mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <span className="text-accent text-xs font-semibold uppercase tracking-wider">{post.category}</span>
+            <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-accent bg-accent/10 border border-accent/20 mb-4">
+              {post.category}
+            </span>
             <h1 className="text-3xl md:text-4xl font-bold text-primary-foreground mt-3 mb-4 max-w-3xl mx-auto text-balance">
               {post.title}
             </h1>
@@ -67,17 +69,17 @@ const BlogPost = () => {
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <article className="max-w-2xl mx-auto">
-            <Link to="/blog" className="inline-flex items-center gap-1 text-sm text-accent hover:underline mb-8">
+            <Link to="/blog" className="inline-flex items-center gap-1 text-sm text-accent hover:underline mb-8 font-medium">
               <ArrowLeft size={14} /> Back to Blog
             </Link>
-            <div className="prose prose-sm max-w-none">
+            <div className="p-8 rounded-2xl bg-card border border-border shadow-card">
               {post.content.map((p, i) => (
                 <motion.p
                   key={i}
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: i * 0.1 }}
-                  className="text-muted-foreground leading-relaxed mb-5"
+                  className="text-muted-foreground leading-relaxed mb-5 last:mb-0"
                 >
                   {p}
                 </motion.p>

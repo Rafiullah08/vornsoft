@@ -8,9 +8,14 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div>
-            <h3 className="text-xl font-bold mb-4">
-              Nova<span className="text-accent">Tech</span>
-            </h3>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-8 h-8 rounded-lg gradient-accent flex items-center justify-center">
+                <span className="text-accent-foreground font-black text-xs">N</span>
+              </div>
+              <h3 className="text-xl font-bold">
+                Nova<span className="text-accent">Tech</span>
+              </h3>
+            </div>
             <p className="text-primary-foreground/60 text-sm leading-relaxed">
               We build world-class digital solutions that drive growth and transform businesses.
             </p>
@@ -18,8 +23,8 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-primary-foreground/80">Quick Links</h4>
-            <ul className="space-y-2">
+            <h4 className="font-bold mb-4 text-sm uppercase tracking-wider text-primary-foreground/80">Quick Links</h4>
+            <ul className="space-y-2.5">
               {["Home", "Services", "About", "Blog", "Contact"].map((item) => (
                 <li key={item}>
                   <Link
@@ -35,8 +40,8 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-primary-foreground/80">Services</h4>
-            <ul className="space-y-2">
+            <h4 className="font-bold mb-4 text-sm uppercase tracking-wider text-primary-foreground/80">Services</h4>
+            <ul className="space-y-2.5">
               {["Web Development", "Mobile Apps", "UI/UX Design", "SEO & Marketing", "Custom Software"].map((s) => (
                 <li key={s}>
                   <span className="text-sm text-primary-foreground/60">{s}</span>
@@ -47,15 +52,15 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-primary-foreground/80">Contact</h4>
+            <h4 className="font-bold mb-4 text-sm uppercase tracking-wider text-primary-foreground/80">Contact</h4>
             <ul className="space-y-3">
-              <li className="flex items-center gap-2 text-sm text-primary-foreground/60">
+              <li className="flex items-center gap-2.5 text-sm text-primary-foreground/60">
                 <Mail size={14} className="text-accent" /> hello@novatech.dev
               </li>
-              <li className="flex items-center gap-2 text-sm text-primary-foreground/60">
+              <li className="flex items-center gap-2.5 text-sm text-primary-foreground/60">
                 <Phone size={14} className="text-accent" /> +1 (555) 123-4567
               </li>
-              <li className="flex items-center gap-2 text-sm text-primary-foreground/60">
+              <li className="flex items-center gap-2.5 text-sm text-primary-foreground/60">
                 <MapPin size={14} className="text-accent" /> San Francisco, CA
               </li>
             </ul>
