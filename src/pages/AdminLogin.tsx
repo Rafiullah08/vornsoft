@@ -8,19 +8,32 @@ const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const { signIn } = useAuth();
+  const [isSignUp, setIsSignUp] = useState(false);
+  const { signIn, signUp } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { error } = await signIn(email, password);
-    setLoading(false);
-    if (error) {
-      toast({ title: "Login failed", description: error.message, variant: "destructive" });
+
+    if (isSignUp) {
+      const { error } = await signUp(email, password);
+      setLoading(false);
+      if (error) {
+        toast({ title: "Sign up failed", description: error.message, variant: "destructive" });
+      } else {
+        toast({ title: "Account created!", description: "You can now sign in." });
+        setIsSignUp(false);
+      }
     } else {
-      navigate("/admin");
+      const { error } = await signIn(email, password);
+      setLoading(false);
+      if (error) {
+        toast({ title: "Login failed", description: error.message, variant: "destructive" });
+      } else {
+        navigate("/admin");
+      }
     }
   };
 
@@ -32,8 +45,12 @@ const AdminLogin = () => {
             <div className="w-12 h-12 rounded-full gradient-accent flex items-center justify-center mx-auto mb-3">
               <Lock size={20} className="text-accent-foreground" />
             </div>
-            <h1 className="text-xl font-bold text-foreground">Admin Login</h1>
-            <p className="text-sm text-muted-foreground mt-1">Sign in to manage your site</p>
+            <h1 className="text-xl font-bold text-foreground">
+              {isSignUp ? "Create Account" : "Admin Login"}
+            </h1>
+            <p className="text-sm text-muted-foreground mt-1">
+              {isSignUp ? "Sign up to get started" : "Sign in to manage your site"}
+            </p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
@@ -51,6 +68,7 @@ const AdminLogin = () => {
               <input
                 type="password"
                 required
+                minLength={6}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-3 py-2 rounded-md border border-border bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-accent"
@@ -61,9 +79,19 @@ const AdminLogin = () => {
               disabled={loading}
               className="w-full py-2.5 rounded-md gradient-accent text-accent-foreground font-medium text-sm hover:opacity-90 transition-opacity disabled:opacity-50"
             >
-              {loading ? "Signing in..." : "Sign In"}
+              {loading ? (isSignUp ? "Creating account..." : "Signing in...") : (isSignUp ? "Sign Up" : "Sign In")}
             </button>
           </form>
+          <p className="text-center text-sm text-muted-foreground mt-4">
+            {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
+            <button
+              type="button"
+              onClick={() => setIsSignUp(!isSignUp)}
+              className="text-accent hover:underline font-medium"
+            >
+              {isSignUp ? "Sign In" : "Sign Up"}
+            </button>
+          </p>
         </div>
       </div>
     </div>
