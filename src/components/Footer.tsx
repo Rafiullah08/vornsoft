@@ -10,10 +10,10 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 rounded-lg gradient-accent flex items-center justify-center">
-                <span className="text-accent-foreground font-black text-xs">N</span>
+                <span className="text-accent-foreground font-black text-xs">V</span>
               </div>
               <h3 className="text-xl font-bold">
-                Nova<span className="text-accent">Tech</span>
+                Vorn<span className="text-accent">Soft</span>
               </h3>
             </div>
             <p className="text-primary-foreground/60 text-sm leading-relaxed">
@@ -55,7 +55,7 @@ const Footer = () => {
             <h4 className="font-bold mb-4 text-sm uppercase tracking-wider text-primary-foreground/80">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-center gap-2.5 text-sm text-primary-foreground/60">
-                <Mail size={14} className="text-accent" /> hello@novatech.dev
+                <Mail size={14} className="text-accent" /> hello@vornsoft.com
               </li>
               <li className="flex items-center gap-2.5 text-sm text-primary-foreground/60">
                 <Phone size={14} className="text-accent" /> +1 (555) 123-4567
@@ -69,7 +69,7 @@ const Footer = () => {
 
         <div className="border-t border-secondary mt-12 pt-8 text-center">
           <p className="text-xs text-primary-foreground/40">
-            © {new Date().getFullYear()} NovaTech. All rights reserved.
+            © {new Date().getFullYear()} VornSoft. All rights reserved.
           </p>
         </div>
       </div>

@@ -39,9 +39,9 @@ const projects = [
 ];
 
 const testimonials = [
-  { name: "Sarah Chen", role: "CEO, TechFlow", text: "NovaTech transformed our digital presence entirely. Their team delivered beyond expectations with remarkable attention to detail." },
+  { name: "Sarah Chen", role: "CEO, TechFlow", text: "VornSoft transformed our digital presence entirely. Their team delivered beyond expectations with remarkable attention to detail." },
   { name: "James Miller", role: "CTO, DataCore", text: "Exceptional engineering quality. They built a system that scales seamlessly with our growth — zero downtime since launch." },
-  { name: "Maria Rodriguez", role: "Founder, GreenLeaf", text: "Professional, responsive, and incredibly talented. Our app launch was a massive success thanks to NovaTech's expertise." },
+  { name: "Maria Rodriguez", role: "Founder, GreenLeaf", text: "Professional, responsive, and incredibly talented. Our app launch was a massive success thanks to VornSoft's expertise." },
 ];
 
 const stats = [

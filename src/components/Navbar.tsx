@@ -24,19 +24,19 @@ const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-primary/98 backdrop-blur-xl shadow-lg border-b border-secondary/50"
-          : "bg-transparent border-b border-transparent"
+          ? "bg-primary/95 backdrop-blur-2xl shadow-2xl border-b border-accent/10"
+          : "bg-primary/20 backdrop-blur-sm border-b border-transparent"
       }`}
     >
-      <nav className="container mx-auto flex items-center justify-between h-18 px-4 lg:px-8 py-4">
-        <Link to="/" className="flex items-center gap-2 group">
+      <nav className="container mx-auto flex items-center justify-between px-4 lg:px-8 py-3.5">
+        <Link to="/" className="flex items-center gap-2.5 group">
           <div className="w-9 h-9 rounded-lg gradient-accent flex items-center justify-center shadow-accent-glow group-hover:scale-110 transition-transform">
-            <span className="text-accent-foreground font-black text-sm">N</span>
+            <span className="text-accent-foreground font-black text-sm">V</span>
           </div>
           <span className="text-xl font-bold text-primary-foreground tracking-tight">
-            Nova<span className="text-accent">Tech</span>
+            Vorn<span className="text-accent">Soft</span>
           </span>
         </Link>
 
@@ -70,7 +70,7 @@ const Navbar = () => {
 
         <Link
           to="/contact"
-          className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold rounded-lg gradient-accent text-accent-foreground shadow-accent-glow transition-all hover:scale-105 hover:shadow-lg"
+          className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold rounded-full gradient-accent text-accent-foreground shadow-accent-glow transition-all hover:scale-105 hover:shadow-lg"
         >
           Get in Touch <ArrowRight size={14} />
         </Link>
