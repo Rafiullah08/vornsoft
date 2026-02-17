@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Target, Eye, Heart, Users, ArrowRight } from "lucide-react";
+import { Target, Eye, Heart, Users, ArrowRight, Star, Headphones, Zap, Shield, DollarSign, Brain, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
@@ -34,7 +34,7 @@ const About = () => {
             <span className="inline-block px-4 py-1 rounded-full text-xs font-semibold tracking-wider uppercase text-accent border border-accent/20 mb-4">
               Who We Are
             </span>
-            <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">About NovaTech</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">About VornSoft</h1>
             <p className="text-primary-foreground/60 max-w-lg mx-auto">
               Building the future of digital, one project at a time.
             </p>
@@ -50,7 +50,7 @@ const About = () => {
               <SectionHeading label="Our Story" title="From Vision to Reality" />
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Founded in 2020, NovaTech began with a simple belief: that great software should be accessible to every business. What started as a small team of passionate developers has grown into a full-service digital agency.
+                  Founded in 2020, VornSoft began with a simple belief: that great software should be accessible to every business. What started as a small team of passionate developers has grown into a full-service digital agency.
                 </p>
                 <p>
                   Today, we partner with startups, SMBs, and enterprises to design and develop digital products that make a real impact. Our team combines deep technical expertise with creative thinking to deliver solutions that exceed expectations.
@@ -109,7 +109,7 @@ const About = () => {
       {/* Team */}
       <section className="py-24 gradient-hero">
         <div className="container mx-auto px-4">
-          <SectionHeading light label="Team" title="Meet the Team" description="The people behind NovaTech's success." />
+          <SectionHeading light label="Team" title="Meet the Team" description="The people behind VornSoft's success." />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map((t, i) => (
               <motion.div
@@ -129,8 +129,45 @@ const About = () => {
         </div>
       </section>
 
+      {/* Why Choose Us */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <SectionHeading label="Why Us" title="Why Choose Us?" />
+          <div className="max-w-3xl mx-auto mb-12">
+            <motion.p {...fadeUp} className="text-center text-muted-foreground leading-relaxed">
+              At Vornsoft, we combine creativity, technology, and strategy to deliver results that matter. With a focus on quality, transparency, and client satisfaction, we ensure every project is handled with care and expertise — helping you grow with confidence in the digital world.
+            </motion.p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {[
+              { icon: Star, title: "Best Quality Designs", desc: "Pixel-perfect, modern designs crafted to impress and convert." },
+              { icon: Headphones, title: "24x7 Live Support", desc: "Round-the-clock assistance whenever you need us, no delays." },
+              { icon: Zap, title: "Fast Delivery", desc: "On-time project delivery without compromising on quality." },
+              { icon: Shield, title: "Secure & Reliable", desc: "Enterprise-grade security and 99.9% uptime guaranteed." },
+              { icon: DollarSign, title: "Affordable Pricing", desc: "Premium solutions at competitive prices that fit your budget." },
+              { icon: Brain, title: "Skilled Minds, Proven Results", desc: "Expert team with years of experience delivering success." },
+            ].map((item, i) => (
+              <motion.div
+                key={item.title}
+                {...fadeUp}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="group flex items-start gap-4 p-6 rounded-2xl border border-border bg-card hover:shadow-card-hover hover:border-accent/20 transition-all duration-300"
+              >
+                <div className="w-12 h-12 rounded-xl gradient-accent flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform">
+                  <item.icon size={20} className="text-accent-foreground" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-card-foreground mb-1">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
-      <section className="py-20 bg-background">
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4 text-center">
           <motion.div {...fadeUp}>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Want to Work With Us?</h2>

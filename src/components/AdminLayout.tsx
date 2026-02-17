@@ -33,7 +33,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
       {/* Sidebar */}
       <aside className="w-60 bg-sidebar text-sidebar-foreground flex flex-col border-r border-sidebar-border">
         <div className="p-4 border-b border-sidebar-border">
-          <Link to="/" className="text-lg font-bold text-sidebar-primary">NovaTech</Link>
+          <Link to="/" className="text-lg font-bold text-sidebar-primary">VornSoft</Link>
           <p className="text-xs text-sidebar-foreground/50 mt-0.5">Admin Panel</p>
         </div>
         <nav className="flex-1 p-3 space-y-1">

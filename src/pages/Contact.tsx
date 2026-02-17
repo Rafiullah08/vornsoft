@@ -57,7 +57,7 @@ const Contact = () => {
                 <h2 className="text-2xl font-bold text-foreground mb-6">Contact Information</h2>
                 <div className="space-y-5">
                   {[
-                    { icon: Mail, label: "Email", value: "hello@novatech.dev" },
+                    { icon: Mail, label: "Email", value: "hello@vornsoft.com" },
                     { icon: Phone, label: "Phone", value: "+1 (555) 123-4567" },
                     { icon: MapPin, label: "Location", value: "San Francisco, CA" },
                   ].map((item) => (
