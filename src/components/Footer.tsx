@@ -55,10 +55,10 @@ const Footer = () => {
             <h4 className="font-bold mb-4 text-sm uppercase tracking-wider text-primary-foreground/80">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-center gap-2.5 text-sm text-primary-foreground/60">
-                <Mail size={14} className="text-accent" /> hello@vornsoft.com
+                <Mail size={14} className="text-accent" /> info@vornsoft.com
               </li>
               <li className="flex items-center gap-2.5 text-sm text-primary-foreground/60">
-                <Phone size={14} className="text-accent" /> +1 (555) 123-4567
+                <Phone size={11} className="text-accent" /> +92 263948677
               </li>
               <li className="flex items-center gap-2.5 text-sm text-primary-foreground/60">
                 <MapPin size={14} className="text-accent" /> San Francisco, CA

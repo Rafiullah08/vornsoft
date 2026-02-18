@@ -37,7 +37,8 @@ const Contact = () => {
             </span>
             <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Get in Touch</h1>
             <p className="text-primary-foreground/60 max-w-lg mx-auto">
-              Have a project in mind? Let's talk about how we can help.
+              We’re here to answer your questions, discuss your ideas, and provide the right digital solutions for your business.
+               Reach out to us today — let’s build something great together.
             </p>
           </motion.div>
         </div>
@@ -57,8 +58,8 @@ const Contact = () => {
                 <h2 className="text-2xl font-bold text-foreground mb-6">Contact Information</h2>
                 <div className="space-y-5">
                   {[
-                    { icon: Mail, label: "Email", value: "hello@vornsoft.com" },
-                    { icon: Phone, label: "Phone", value: "+1 (555) 123-4567" },
+                    { icon: Mail, label: "Email", value: "Info@vornsoft.com" },
+                    { icon: Phone, label: "Phone", value: "+92 263948677" },
                     { icon: MapPin, label: "Location", value: "San Francisco, CA" },
                   ].map((item) => (
                     <div key={item.label} className="flex items-start gap-4 group">

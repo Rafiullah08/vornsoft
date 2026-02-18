@@ -45,10 +45,10 @@ const testimonials = [
 ];
 
 const stats = [
-  { num: "50+", label: "Projects Delivered", icon: Award },
+  { num: "10+", label: "Projects Delivered", icon: Award },
   { num: "98%", label: "Client Satisfaction", icon: Users },
   { num: "15+", label: "Team Members", icon: CheckCircle2 },
-  { num: "5+", label: "Years Experience", icon: Clock },
+  { num: "2+", label: "Years Experience", icon: Clock },
 ];
 
 const processSteps = [

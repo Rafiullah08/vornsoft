@@ -60,9 +60,9 @@ const Services = () => {
               What We Do
             </span>
             <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Our Services</h1>
+            <h3 className="text-xl text-primary-foreground/80 mb-3">We provide a wide range of Services</h3>
             <p className="text-primary-foreground/60 max-w-lg mx-auto">
-              Comprehensive digital solutions to take your business to the next level.
-            </p>
+From web and mobile development to branding, marketing, and eCommerce — Vornsoft delivers tailored services designed to help your business grow in the digital world.            </p>
           </motion.div>
         </div>
       </section>

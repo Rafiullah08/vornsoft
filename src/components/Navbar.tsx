@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import logo from '/logo.png'
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -37,6 +38,7 @@ const Navbar = () => {
           </div>
           <span className="text-xl font-bold text-primary-foreground tracking-tight">
             Vorn<span className="text-accent">Soft</span>
+            {/* <img src={logo} alt="Logo" className="h-0 w-20" /> */}
           </span>
         </Link>
 

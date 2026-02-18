@@ -28,9 +28,9 @@ const Blog = () => {
             <span className="inline-block px-4 py-1 rounded-full text-xs font-semibold tracking-wider uppercase text-accent border border-accent/20 mb-4">
               Insights
             </span>
-            <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Blog</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Learn Smart. Grow Digital.</h1>
             <p className="text-primary-foreground/60 max-w-lg mx-auto">
-              Insights, tutorials, and industry perspectives from our team.
+              Master English skills and explore powerful tech insights to unlock new opportunities.
             </p>
           </motion.div>
         </div>

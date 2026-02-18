@@ -12,10 +12,10 @@ const values = [
 ];
 
 const team = [
-  { name: "Alex Thompson", role: "CEO & Founder" },
-  { name: "Emily Park", role: "CTO" },
-  { name: "David Kim", role: "Lead Designer" },
-  { name: "Rachel Torres", role: "Project Manager" },
+  { name: "Rafi Ullah", role: "CEO & Founder" },
+  { name: " M Huzaifa", role: "CTO" },
+  { name: "Azhar Uddin", role: "Lead Designer" },
+  { name: "Talha khan", role: "Project Manager" },
 ];
 
 const fadeUp = {
@@ -36,7 +36,7 @@ const About = () => {
             </span>
             <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">About VornSoft</h1>
             <p className="text-primary-foreground/60 max-w-lg mx-auto">
-              Building the future of digital, one project at a time.
+             We are a team of creative minds and tech experts committed to delivering innovative digital solutions. From web and app development to branding and marketing, we help businesses grow and thrive in the digital world.
             </p>
           </motion.div>
         </div>
