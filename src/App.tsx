@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import About from "./pages/About";
@@ -11,6 +12,7 @@ import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
+
 import AdminLogin from "./pages/AdminLogin";
 import AdminRoute from "./components/AdminRoute";
 import Dashboard from "./pages/admin/Dashboard";
@@ -24,8 +26,6 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
-      <Sonner />
       <BrowserRouter>
         <AuthProvider>
           <Routes>
@@ -36,15 +36,21 @@ const App = () => (
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/admin" element={<AdminRoute><Dashboard /></AdminRoute>} />
-            <Route path="/admin/blog" element={<AdminRoute><BlogManager /></AdminRoute>} />
-            <Route path="/admin/portfolio" element={<AdminRoute><PortfolioManager /></AdminRoute>} />
-            <Route path="/admin/services" element={<AdminRoute><ServicesManager /></AdminRoute>} />
-            <Route path="/admin/messages" element={<AdminRoute><MessagesManager /></AdminRoute>} />
+
+            <Route path="/admin" element={<AdminRoute />}>
+              <Route index element={<Dashboard />} />
+              <Route path="blog" element={<BlogManager />} />
+              <Route path="portfolio" element={<PortfolioManager />} />
+              <Route path="services" element={<ServicesManager />} />
+              <Route path="messages" element={<MessagesManager />} />
+            </Route>
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
+      <Toaster />
+      <Sonner />
     </TooltipProvider>
   </QueryClientProvider>
 );

@@ -20,7 +20,7 @@ const navItems = [
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
   const { pathname } = useLocation();
-  const { signOut, user } = useAuth();
+  const { signOut, user, loading } = useAuth();
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
@@ -28,17 +28,27 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
     navigate("/admin/login");
   };
 
+  // Agar loading hai to kuch mat dikhao (AdminRoute already loading dikha raha hai)
+  if (loading) return null;
+
   return (
     <div className="min-h-screen flex bg-background">
-      {/* Sidebar */}
       <aside className="w-60 bg-sidebar text-sidebar-foreground flex flex-col border-r border-sidebar-border">
         <div className="p-4 border-b border-sidebar-border">
-          <Link to="/" className="text-lg font-bold text-sidebar-primary">VornSoft</Link>
-          <p className="text-xs text-sidebar-foreground/50 mt-0.5">Admin Panel</p>
+          <Link to="/" className="text-lg font-bold text-sidebar-primary">
+            VornSoft
+          </Link>
+          <p className="text-xs text-sidebar-foreground/50 mt-0.5">
+            Admin Panel
+          </p>
         </div>
+
         <nav className="flex-1 p-3 space-y-1">
           {navItems.map((item) => {
-            const isActive = pathname === item.to;
+            const isActive =
+              pathname === item.to ||
+              (item.to !== "/admin" && pathname.startsWith(item.to));
+
             return (
               <Link
                 key={item.to}
@@ -55,8 +65,11 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
             );
           })}
         </nav>
+
         <div className="p-3 border-t border-sidebar-border">
-          <p className="text-xs text-sidebar-foreground/50 truncate mb-2 px-3">{user?.email}</p>
+          <p className="text-xs text-sidebar-foreground/50 truncate mb-2 px-3">
+            {user?.email}
+          </p>
           <button
             onClick={handleSignOut}
             className="flex items-center gap-2 px-3 py-2 w-full rounded-md text-sm text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground transition-colors"
@@ -66,10 +79,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
         </div>
       </aside>
 
-      {/* Main */}
-      <main className="flex-1 p-6 overflow-auto">
-        {children}
-      </main>
+      <main className="flex-1 p-6 overflow-auto">{children}</main>
     </div>
   );
 };

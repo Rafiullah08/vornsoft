@@ -1,47 +1,18 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Code, Smartphone, Palette, TrendingUp, Shield, Settings, ArrowRight } from "lucide-react";
+import * as Icons from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
+import { supabase } from "@/integrations/supabase/client";
 
-const services = [
-  {
-    icon: Code,
-    title: "Web Development",
-    desc: "We build fast, scalable web applications using React, TypeScript, and modern frameworks. From SPAs to complex platforms.",
-    features: ["React & Next.js", "TypeScript", "Performance Optimization", "Progressive Web Apps"],
-  },
-  {
-    icon: Smartphone,
-    title: "Mobile App Development",
-    desc: "Native and cross-platform mobile apps for iOS and Android that deliver seamless user experiences.",
-    features: ["React Native", "iOS & Android", "App Store Optimization", "Push Notifications"],
-  },
-  {
-    icon: Palette,
-    title: "UI/UX Design",
-    desc: "User-centered design methodology that creates intuitive, beautiful interfaces driving engagement and conversions.",
-    features: ["User Research", "Wireframing", "Prototyping", "Design Systems"],
-  },
-  {
-    icon: TrendingUp,
-    title: "SEO & Digital Marketing",
-    desc: "Data-driven marketing strategies and technical SEO to increase your visibility, traffic, and conversions.",
-    features: ["Technical SEO", "Content Strategy", "Analytics", "Conversion Optimization"],
-  },
-  {
-    icon: Shield,
-    title: "Custom Software Solutions",
-    desc: "Enterprise-grade custom software tailored to your unique business processes and requirements.",
-    features: ["Requirements Analysis", "Architecture Design", "Integration", "Maintenance"],
-  },
-  {
-    icon: Settings,
-    title: "Cloud & DevOps",
-    desc: "Scalable cloud infrastructure, CI/CD pipelines, and DevOps practices for reliable deployments.",
-    features: ["AWS / GCP / Azure", "Docker & Kubernetes", "CI/CD Pipelines", "Monitoring"],
-  },
-];
+interface Service {
+  id: string;
+  title: string;
+  description: string | null;
+  icon: string | null;
+  features: string[];
+}
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -51,6 +22,35 @@ const fadeUp = {
 };
 
 const Services = () => {
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadServices();
+  }, []);
+
+  const loadServices = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("services")
+        .select("*")
+        .eq("published", true)
+        .order("display_order");
+
+      if (error) throw error;
+      setServices(data || []);
+    } catch (error) {
+      console.error("Error loading services:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getIcon = (iconName: string | null) => {
+    if (!iconName) return Icons.Code;
+    return (Icons as any)[iconName] || Icons.Code;
+  };
+
   return (
     <Layout>
       <section className="py-24 gradient-hero">
@@ -62,41 +62,64 @@ const Services = () => {
             <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4">Our Services</h1>
             <h3 className="text-xl text-primary-foreground/80 mb-3">We provide a wide range of Services</h3>
             <p className="text-primary-foreground/60 max-w-lg mx-auto">
-From web and mobile development to branding, marketing, and eCommerce — Vornsoft delivers tailored services designed to help your business grow in the digital world.            </p>
+              From web and mobile development to branding, marketing, and eCommerce — Vornsoft delivers tailored services designed to help your business grow in the digital world.
+            </p>
           </motion.div>
         </div>
       </section>
 
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {services.map((s, i) => (
-              <motion.div
-                key={s.title}
-                {...fadeUp}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="group p-8 rounded-2xl border border-border bg-card hover:shadow-card-hover hover:border-accent/20 transition-all duration-300 relative overflow-hidden"
-              >
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent/0 via-accent/40 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="flex items-start gap-5">
-                  <div className="w-14 h-14 rounded-2xl gradient-accent flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform">
-                    <s.icon size={24} className="text-accent-foreground" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-card-foreground mb-2 group-hover:text-accent transition-colors">{s.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{s.desc}</p>
-                    <ul className="flex flex-wrap gap-2">
-                      {s.features.map((f) => (
-                        <li key={f} className="text-xs px-3 py-1.5 rounded-full bg-accent/10 text-accent font-medium border border-accent/10">
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {services.map((s, i) => {
+                const Icon = getIcon(s.icon);
+                return (
+                  <motion.div
+                    key={s.id}
+                    {...fadeUp}
+                    transition={{ duration: 0.5, delay: i * 0.08 }}
+                    className="group p-8 rounded-2xl border border-border bg-card hover:shadow-card-hover hover:border-accent/20 transition-all duration-300 relative overflow-hidden"
+                  >
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-accent/0 via-accent/40 to-accent/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="flex items-start gap-5">
+                      <div className="w-14 h-14 rounded-2xl gradient-accent flex items-center justify-center flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform">
+                        <Icon size={24} className="text-accent-foreground" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-card-foreground mb-2 group-hover:text-accent transition-colors">
+                          {s.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                          {s.description}
+                        </p>
+                        <ul className="flex flex-wrap gap-2">
+                          {s.features.map((f) => (
+                            <li
+                              key={f}
+                              className="text-xs px-3 py-1.5 rounded-full bg-accent/10 text-accent font-medium border border-accent/10"
+                            >
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
+
+              {services.length === 0 && !loading && (
+                <div className="col-span-full text-center py-12 text-muted-foreground">
+                  No services available yet.
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
 
@@ -110,7 +133,7 @@ From web and mobile development to branding, marketing, and eCommerce — Vornso
               to="/contact"
               className="inline-flex items-center gap-2 px-8 py-3.5 rounded-lg gradient-accent text-accent-foreground font-semibold shadow-accent-glow hover:scale-105 transition-transform"
             >
-              Contact Us <ArrowRight size={16} />
+              Contact Us <Icons.ArrowRight size={16} />
             </Link>
           </motion.div>
         </div>

@@ -1,16 +1,19 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar } from "lucide-react";
 import Layout from "@/components/Layout";
+import { supabase } from "@/integrations/supabase/client";
 
-const posts = [
-  { slug: "future-of-web-development", title: "The Future of Web Development in 2026", excerpt: "Explore the latest trends shaping the web development landscape, from AI-powered tools to edge computing.", date: "Feb 10, 2026", category: "Technology" },
-  { slug: "building-scalable-apps", title: "Building Scalable Applications from Day One", excerpt: "Learn the architectural patterns and best practices for building apps that grow with your business.", date: "Jan 28, 2026", category: "Engineering" },
-  { slug: "ui-ux-trends", title: "UI/UX Design Trends to Watch", excerpt: "The design patterns and principles that are defining modern user experiences this year.", date: "Jan 15, 2026", category: "Design" },
-  { slug: "mobile-first-strategy", title: "Why Mobile-First is Still King", excerpt: "A deep dive into why mobile-first development remains critical for business success.", date: "Jan 5, 2026", category: "Strategy" },
-  { slug: "cloud-architecture-guide", title: "Cloud Architecture: A Practical Guide", excerpt: "From monoliths to microservices — practical advice on choosing the right cloud architecture.", date: "Dec 20, 2025", category: "DevOps" },
-  { slug: "seo-technical-checklist", title: "The Technical SEO Checklist for 2026", excerpt: "Everything you need to ensure your web application ranks well in search engines.", date: "Dec 10, 2025", category: "SEO" },
-];
+interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  featured_image: string | null;
+  published_at: string;
+  created_at: string;
+}
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -20,6 +23,38 @@ const fadeUp = {
 };
 
 const Blog = () => {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadPosts();
+  }, []);
+
+  const loadPosts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("blog_posts")
+        .select("id, title, slug, excerpt, featured_image, published_at, created_at")
+        .eq("published", true)
+        .order("published_at", { ascending: false });
+
+      if (error) throw error;
+      setPosts(data || []);
+    } catch (error) {
+      console.error("Error loading posts:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
+
   return (
     <Layout>
       <section className="py-24 gradient-hero">
@@ -38,38 +73,59 @@ const Blog = () => {
 
       <section className="py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post, i) => (
-              <motion.article
-                key={post.slug}
-                {...fadeUp}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="group rounded-2xl border border-border bg-card hover:shadow-card-hover hover:border-accent/20 transition-all duration-300 overflow-hidden"
-              >
-                <div className="h-44 bg-gradient-to-br from-accent/10 via-accent/5 to-secondary/20 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider text-accent bg-accent/10 border border-accent/20">
-                    {post.category}
-                  </span>
-                </div>
-                <div className="p-7">
-                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-3">
-                    <Calendar size={12} /> {post.date}
+          {loading ? (
+            <div className="flex justify-center py-12">
+              <div className="w-12 h-12 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {posts.map((post, i) => (
+                <motion.article
+                  key={post.id}
+                  {...fadeUp}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  className="group rounded-2xl border border-border bg-card hover:shadow-card-hover hover:border-accent/20 transition-all duration-300 overflow-hidden"
+                >
+                  {post.featured_image ? (
+                    <div className="h-48 overflow-hidden">
+                      <img
+                        src={post.featured_image}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  ) : (
+                    <div className="h-48 bg-gradient-to-br from-accent/10 via-accent/5 to-secondary/20 flex items-center justify-center">
+                      <span className="text-accent/50 text-sm">No image</span>
+                    </div>
+                  )}
+                  <div className="p-7">
+                    <div className="flex items-center gap-1.5 text-xs text-muted-foreground mb-3">
+                      <Calendar size={12} /> {formatDate(post.published_at || post.created_at)}
+                    </div>
+                    <h2 className="font-bold text-lg text-card-foreground mb-3 group-hover:text-accent transition-colors leading-snug">
+                      {post.title}
+                    </h2>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                      {post.excerpt || "Click to read more..."}
+                    </p>
+                    <Link
+                      to={`/blog/${post.slug}`}
+                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:gap-3 transition-all"
+                    >
+                      Read More <ArrowRight size={14} />
+                    </Link>
                   </div>
-                  <h2 className="font-bold text-lg text-card-foreground mb-3 group-hover:text-accent transition-colors leading-snug">
-                    {post.title}
-                  </h2>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">{post.excerpt}</p>
-                  <Link
-                    to={`/blog/${post.slug}`}
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent hover:gap-3 transition-all"
-                  >
-                    Read More <ArrowRight size={14} />
-                  </Link>
+                </motion.article>
+              ))}
+              
+              {posts.length === 0 && !loading && (
+                <div className="col-span-full text-center py-12 text-muted-foreground">
+                  No blog posts yet. Check back soon!
                 </div>
-              </motion.article>
-            ))}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
     </Layout>
