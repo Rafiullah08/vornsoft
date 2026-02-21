@@ -50,11 +50,9 @@ const About = () => {
               <SectionHeading label="Our Story" title="From Vision to Reality" />
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Founded in 2020, VornSoft began with a simple belief: that great software should be accessible to every business. What started as a small team of passionate developers has grown into a full-service digital agency.
-                </p>
+Founded in 2023, VornSoft emerged with a clear mission: to make world-class software development accessible to businesses of every scale. What began as a compact team of passionate engineers has rapidly evolved into a comprehensive digital innovation partner.                </p>
                 <p>
-                  Today, we partner with startups, SMBs, and enterprises to design and develop digital products that make a real impact. Our team combines deep technical expertise with creative thinking to deliver solutions that exceed expectations.
-                </p>
+Today, we collaborate with forward-thinking startups, dynamic SMBs, and established enterprises to architect and build digital products that drive tangible results. Our team unites deep technical mastery with creative problem-solving, delivering solutions that don't just meet expectations—they redefine them.                </p>
               </div>
             </motion.div>
           </div>

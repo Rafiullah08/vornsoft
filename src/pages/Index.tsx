@@ -24,12 +24,12 @@ import SectionHeading from "@/components/SectionHeading";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const services = [
-  { icon: Code, title: "Web Development", desc: "High-performance web applications built with cutting-edge technologies for speed and scalability." },
-  { icon: Smartphone, title: "Mobile Apps", desc: "Native and cross-platform mobile solutions that deliver seamless experiences on iOS and Android." },
-  { icon: Palette, title: "UI/UX Design", desc: "User-centered design crafted to maximize engagement and deliver exceptional digital experiences." },
-  { icon: TrendingUp, title: "SEO & Marketing", desc: "Data-driven strategies that boost visibility, drive traffic, and accelerate your business growth." },
-  { icon: Shield, title: "Custom Software", desc: "Tailor-made enterprise solutions engineered to streamline your operations and cut costs." },
-  { icon: Zap, title: "Cloud Solutions", desc: "Scalable cloud infrastructure and DevOps services that grow with your business demands." },
+  { icon: Code, title: "Web Development", desc: "We build fast, scalable, and secure web applications using modern frameworks and best practices. From simple landing pages to complex enterprise portals, our solutions are tailored to your business needs, ensuring optimal performance across all devices." },
+  { icon: Smartphone, title: "Mobile Apps", desc: "Create powerful native and cross-platform mobile experiences that engage users and drive growth. We develop high-performance apps for iOS and Android with clean architecture, offline support, and seamless backend integration." },
+  { icon: Palette, title: "UI/UX Design", desc: "We design beautiful, intuitive interfaces that users love. Our user-centered design process includes research, wireframing, prototyping, and usability testing to create digital experiences that are both visually stunning and highly functional." },
+  { icon: TrendingUp, title: "SEO & Marketing", desc: "Boost your online visibility and attract quality traffic with data-driven SEO and digital marketing strategies. We optimize your website for search engines, create compelling content, and run targeted campaigns that convert visitors into customers." },
+  { icon: Shield, title: "Custom Software", desc: "Tailor-made software solutions designed to solve your unique business challenges. From internal tools to complex enterprise systems, we build robust, scalable applications that streamline operations and give you a competitive edge." },
+  { icon: Zap, title: "Cloud Solutions", desc: "Scalable cloud infrastructure and deployment strategies to ensure your applications run smoothly 24/7. We help you migrate, manage, and optimize your cloud presence on AWS, Google Cloud, and Azure." },
 ];
 
 const projects = [
