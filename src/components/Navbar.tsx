@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from '/logo.png'
+import logo from '../assets/logo.png';
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -33,12 +33,12 @@ const Navbar = () => {
     >
       <nav className="container mx-auto flex items-center justify-between px-4 lg:px-8 py-3.5">
         <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-lg gradient-accent flex items-center justify-center shadow-accent-glow group-hover:scale-110 transition-transform">
+          {/* <div className="w-9 h-9 rounded-lg gradient-accent flex items-center justify-center shadow-accent-glow group-hover:scale-110 transition-transform">
             <span className="text-accent-foreground font-black text-sm">V</span>
-          </div>
+          </div> */}
           <span className="text-xl font-bold text-primary-foreground tracking-tight">
-            Vorn<span className="text-accent">Soft</span>
-            {/* <img src={logo} alt="Logo" className="h-0 w-20" /> */}
+            {/* Vorn<span className="text-accent">Soft</span> */}
+            <img src={logo} alt="Logo" className="h-8 w-55" />
           </span>
         </Link>
 
