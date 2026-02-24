@@ -57,8 +57,8 @@ const App = () => (
           </Routes>
         </AuthProvider>
       </BrowserRouter>
-      <Toaster />
-      <Sonner />
+     <Toaster position="top-right" />
+    <Sonner position="top-right" richColors />
       <Analytics/>
       <SpeedInsights/>
     </TooltipProvider>

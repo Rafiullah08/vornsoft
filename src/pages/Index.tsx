@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
-import heroBg from "@/assets/hero-bg.jpg";
+import heroBg from "@/assets/hero-bg.webp";
 
 const services = [
   { icon: Code, title: "Web Development", desc: "We build fast, scalable, and secure web applications using modern frameworks and best practices. From simple landing pages to complex enterprise portals, our solutions are tailored to your business needs, ensuring optimal performance across all devices." },
