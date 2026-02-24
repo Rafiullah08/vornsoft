@@ -83,7 +83,7 @@ const Index = () => {
     <Layout>
       {/* ─── Hero ─── */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" aria-hidden="true" />
+        <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover" aria-hidden="true" fetchPriority="high" loading="eager"  />
         <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/70 to-primary/90" />
 
         <div className="relative z-10 container mx-auto px-4 text-center py-20">
