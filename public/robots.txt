@@ -1,6 +1,8 @@
 User-agent: Googlebot
 Allow: /
 
+Sitemap: https://vornsoft.com/sitemap.xml
+
 User-agent: Bingbot
 Allow: /
 
