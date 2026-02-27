@@ -89,7 +89,7 @@ const AdminLogin = () => {
               onClick={() => setIsSignUp(!isSignUp)}
               className="text-accent hover:underline font-medium"
             >
-              {isSignUp ? "Sign In" : "Sign Up"}
+              {/* {isSignUp ? "Sign In" : "Sign Up"} */}
             </button>
           </p>
         </div>
